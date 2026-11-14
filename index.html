@@ -3,164 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đám Cưới Khang Vinh & Thuý Nhã</title>
+    <title>Khang Vinh & Thuý Nhã — 01.01.2027</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #8B0000;
-            --gold-color: #D4AF37;
-            --bg-color: #FFF9F5;
-            --text-color: #333333;
+            --bg-cream: #FAF8F5;
+            --bg-card: #FFFFFF;
+            --text-dark: #2C2A29;
+            --text-muted: #6E6A66;
+            --accent-champagne: #B59A72;
+            --border-subtle: #EAE4DC;
+        }
+        * {
+            box-sizing: border-box;
         }
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
             margin: 0;
             padding: 0;
             text-align: center;
+            line-height: 1.7;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+        }
+        .serif {
+            font-family: 'Cormorant Garamond', Georgia, serif;
         }
         header {
-            background: linear-gradient(rgba(139, 0, 0, 0.85), rgba(139, 0, 0, 0.85)), url('h1.jpg') center/cover;
-            color: white;
-            padding: 60px 20px;
-            border-bottom: 4px solid var(--gold-color);
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin: 10px 0;
-            color: var(--gold-color);
-            font-weight: normal;
-            font-family: Georgia, serif;
+            padding: 90px 20px 70px;
+            background-color: var(--bg-cream);
+            position: relative;
         }
         .subtitle {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
+            color: var(--accent-champagne);
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+        h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 3.4rem;
+            font-weight: 400;
+            margin: 0;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            line-height: 1.15;
+        }
+        h1 span.amp {
+            font-style: italic;
+            color: var(--accent-champagne);
+            font-size: 2.8rem;
+            margin: 0 8px;
+        }
+        .header-date {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            margin-top: 18px;
+            letter-spacing: 1px;
+        }
+        .divider {
+            width: 60px;
+            height: 1px;
+            background-color: var(--accent-champagne);
+            margin: 35px auto;
+            opacity: 0.6;
         }
         .container {
-            max-width: 800px;
+            max-width: 880px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 0 20px 60px;
         }
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-            border: 1px solid #f0e6df;
+        .invitation-card {
+            background: var(--bg-card);
+            padding: 55px 35px;
+            border: 1px solid var(--border-subtle);
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(44, 42, 41, 0.03);
         }
-        .info-item {
-            margin: 20px 0;
-            font-size: 1.2rem;
+        .invite-text {
+            max-width: 520px;
+            margin: 0 auto 40px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
-        .info-item strong {
-            color: var(--primary-color);
-            display: block;
-            font-size: 0.9rem;
+        .details-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .detail-block {
+            min-width: 180px;
+        }
+        .detail-label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            color: var(--accent-champagne);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .detail-value {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.65rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        .vertical-sep {
+            width: 1px;
+            height: 50px;
+            background-color: var(--border-subtle);
+        }
+        .gallery-section {
+            margin-top: 20px;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin: 0 0 8px;
+        }
+        .section-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
             letter-spacing: 1px;
-            margin-bottom: 5px;
+            margin-bottom: 35px;
         }
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 18px;
         }
+        /* Bố cục bất đối xứng tinh tế: 2 tấm lớn ở trên, 3 tấm nhỏ ở dưới */
         .photo-box {
-            width: 100%;
-            height: 250px;
-            background-color: #f2f2f2;
-            border-radius: 8px;
+            background-color: #F2EFE9;
+            border: 1px solid var(--border-subtle);
             overflow: hidden;
-            border: 2px dashed #d4af37;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            transition: transform 0.4s ease;
+        }
+        .photo-box:nth-child(1),
+        .photo-box:nth-child(2) {
+            grid-column: span 3;
+            height: 360px;
+        }
+        .photo-box:nth-child(3),
+        .photo-box:nth-child(4),
+        .photo-box:nth-child(5) {
+            grid-column: span 2;
+            height: 280px;
         }
         .photo-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.6s ease;
+        }
+        .photo-box:hover img {
+            transform: scale(1.03);
         }
         .missing-label {
             position: absolute;
-            color: #777;
-            font-size: 0.9rem;
-            font-style: italic;
-            padding: 10px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding: 15px;
             text-align: center;
+            border: 1px dashed var(--accent-champagne);
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .missing-label b {
+            display: block;
+            margin-top: 4px;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-family: monospace;
+            font-size: 0.9rem;
         }
         footer {
-            margin: 40px 0;
-            font-size: 0.9rem;
-            color: #777;
+            padding: 40px 20px 60px;
+            border-top: 1px solid var(--border-subtle);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        footer p {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin: 0 0 10px;
+        }
+        .copyright {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-champagne);
+        }
+
+        @media (max-width: 680px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .vertical-sep {
+                display: none;
+            }
+            .details-grid {
+                flex-direction: column;
+                gap: 25px;
+            }
+            .photo-box:nth-child(1),
+            .photo-box:nth-child(2),
+            .photo-box:nth-child(3),
+            .photo-box:nth-child(4),
+            .photo-box:nth-child(5) {
+                grid-column: span 6;
+                height: 320px;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="subtitle">Trân Trọng Kính Mời</div>
-        <h1>Khang Vinh & Thuý Nhã</h1>
-        <p>Đến tham dự lễ thành hôn của chúng tôi</p>
+        <div class="subtitle">Save The Date</div>
+        <h1>Khang Vinh <span class="amp">&amp;</span> Thuý Nhã</h1>
+        <div class="header-date">01 . 01 . 2027 &mdash; Bến Tre</div>
+        <div class="divider"></div>
     </header>
 
     <div class="container">
-        <!-- Thông tin đám cưới -->
-        <div class="card">
-            <div class="info-item">
-                <strong>Ngày Cưới</strong>
-                01 / 01 / 2027
-            </div>
-            <hr style="border: none; border-top: 1px solid #eee; width: 50%;">
-            <div class="info-item">
-                <strong>Địa Điểm</strong>
-                Tỉnh Bến Tre
+        <!-- Thiệp mời tối giản sang trọng -->
+        <div class="invitation-card">
+            <p class="invite-text">
+                Trân trọng kính mời Quý khách đến chung vui và chứng kiến khoảnh khắc khởi đầu hành trình hạnh phúc của chúng tôi.
+            </p>
+            
+            <div class="details-grid">
+                <div class="detail-block">
+                    <div class="detail-label">Thời Gian</div>
+                    <div class="detail-value">01 Tháng 01, 2027</div>
+                </div>
+                <div class="vertical-sep"></div>
+                <div class="detail-block">
+                    <div class="detail-label">Địa Điểm</div>
+                    <div class="detail-value">Tỉnh Bến Tre</div>
+                </div>
             </div>
         </div>
 
-        <!-- Thư viện hình ảnh (5 tấm h1 đến h5) -->
-        <div class="card">
-            <h2 style="color: var(--primary-color); font-family: Georgia, serif; margin-top: 0;">Album Hình Cưới</h2>
-            <p style="color: #666; font-size: 0.95rem;">Khoảnh khắc hạnh phúc của chúng mình</p>
+        <!-- Album 5 tấm hình (h1.JPEG đến h5.JPEG) -->
+        <div class="gallery-section">
+            <h2 class="section-title">Our Moments</h2>
+            <div class="section-sub">Kỷ niệm ngày chung đôi</div>
             
             <div class="gallery">
-                <!-- Hình 1 -->
                 <div class="photo-box">
-                    <span class="missing-label">Chưa có ảnh<br><b>h1.jpg</b></span>
-                    <img src="h1.jpg" alt="Ảnh cưới 1" onerror="this.style.display='none'">
+                    <span class="missing-label">Chưa có ảnh<b>h1.JPEG</b></span>
+                    <img src="h1.JPEG" alt="Khang Vinh & Thuý Nhã 1" onerror="this.style.display='none'">
                 </div>
-                <!-- Hình 2 -->
                 <div class="photo-box">
-                    <span class="missing-label">Chưa có ảnh<br><b>h2.jpg</b></span>
-                    <img src="h2.jpg" alt="Ảnh cưới 2" onerror="this.style.display='none'">
+                    <span class="missing-label">Chưa có ảnh<b>h2.JPEG</b></span>
+                    <img src="h2.JPEG" alt="Khang Vinh & Thuý Nhã 2" onerror="this.style.display='none'">
                 </div>
-                <!-- Hình 3 -->
                 <div class="photo-box">
-                    <span class="missing-label">Chưa có ảnh<br><b>h3.jpg</b></span>
-                    <img src="h3.jpg" alt="Ảnh cưới 3" onerror="this.style.display='none'">
+                    <span class="missing-label">Chưa có ảnh<b>h3.JPEG</b></span>
+                    <img src="h3.JPEG" alt="Khang Vinh & Thuý Nhã 3" onerror="this.style.display='none'">
                 </div>
-                <!-- Hình 4 -->
                 <div class="photo-box">
-                    <span class="missing-label">Chưa có ảnh<br><b>h4.jpg</b></span>
-                    <img src="h4.jpg" alt="Ảnh cưới 4" onerror="this.style.display='none'">
+                    <span class="missing-label">Chưa có ảnh<b>h4.JPEG</b></span>
+                    <img src="h4.JPEG" alt="Khang Vinh & Thuý Nhã 4" onerror="this.style.display='none'">
                 </div>
-                <!-- Hình 5 -->
                 <div class="photo-box">
-                    <span class="missing-label">Chưa có ảnh<br><b>h5.jpg</b></span>
-                    <img src="h5.jpg" alt="Ảnh cưới 5" onerror="this.style.display='none'">
+                    <span class="missing-label">Chưa có ảnh<b>h5.JPEG</b></span>
+                    <img src="h5.JPEG" alt="Khang Vinh & Thuý Nhã 5" onerror="this.style.display='none'">
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình chúng tôi!</p>
-        <p>&copy; 2027 Khang Vinh & Thuý Nhã</p>
+        <p>Sự hiện diện của bạn là niềm vinh hạnh lớn nhất của gia đình chúng tôi.</p>
+        <div class="copyright">Khang Vinh &bull; Thuý Nhã &bull; 2027</div>
     </footer>
 
 </body>
