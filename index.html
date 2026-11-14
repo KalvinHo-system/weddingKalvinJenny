@@ -319,8 +319,75 @@
             padding: 36px 12px;
         }
 
+        /* Nút phát nhạc nền vàng kim nổi ở góc màn hình */
+        .music-control {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .music-tag {
+            background: rgba(255, 255, 255, 0.94);
+            color: var(--text-dark);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(44, 42, 41, 0.08);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .music-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D8B982 0%, #B59A72 55%, #967A50 100%);
+            border: 2px solid #FFFFFF;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(150, 122, 80, 0.35);
+            position: relative;
+            padding: 0;
+            transition: transform 0.25s ease;
+        }
+        .music-btn:hover {
+            transform: scale(1.06);
+        }
+        .music-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        .music-btn.playing svg {
+            animation: spinDisc 6s linear infinite;
+        }
+        .music-btn.playing::before {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-champagne);
+            animation: pulseRing 2s ease-out infinite;
+            pointer-events: none;
+        }
+        @keyframes spinDisc {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(0.95); opacity: 0.75; }
+            100% { transform: scale(1.32); opacity: 0; }
+        }
+
         footer {
-            padding: 28px 20px 44px;
+            padding: 28px 20px 64px;
             border-top: 1px solid var(--border-subtle);
             max-width: 560px;
             margin: 0 auto;
@@ -383,10 +450,43 @@
             .qr-box {
                 max-width: 220px;
             }
+            .music-control {
+                right: 14px;
+                bottom: 14px;
+            }
+            .music-btn {
+                width: 42px;
+                height: 42px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Nhạc nền thiệp cưới (đặt file music.mp3 cùng thư mục với index.html) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+        <source src="music.MP3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control">
+        <span id="musicTag" class="music-tag">Bật nhạc</span>
+        <button type="button" id="musicBtn" class="music-btn" onclick="toggleMusic(event)" aria-label="Bật hoặc tắt nhạc nền">
+            <!-- Icon nốt nhạc khi đang phát -->
+            <svg id="iconPlay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <!-- Icon tắt nhạc khi đang tạm dừng -->
+            <svg id="iconMute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+                <line x1="3" y1="3" x2="21" y2="21"></line>
+            </svg>
+        </button>
+    </div>
 
     <header>
         <!-- Biểu tượng Song Hổ High-Five 2D màu vàng kim -->
@@ -402,7 +502,6 @@
 
             <!-- Hổ bên trái giơ tay đập high five -->
             <g id="tiger-left">
-                <!-- Khối thân, đầu gầm nhe nanh, tay giơ cao high-five & đuôi uốn cong -->
                 <path fill="url(#goldFoil)" d="
                     M 68 82
                     C 51 82, 40 72, 41 58
@@ -577,10 +676,10 @@
                 Nếu không thể đến chung vui trực tiếp, Quý khách có thể gửi lời chúc và quà mừng cưới online cho chúng tôi qua mã QR bên dưới. Xin chân thành cảm ơn tình cảm của Quý khách!
             </p>
             <div class="qr-box">
-                <span class="missing-label">Chưa có ảnh<b>qr.jpg</b></span>
-                <img src="qr.jpg" alt="Mã QR gửi quà cưới online Khang Vinh & Thuý Nhã" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'; this.previousElementSibling.style.display='block'">
+                <span class="missing-label">Chưa có ảnh<b>qr.JPEG</b></span>
+                <img src="qr.JPEG" alt="Mã QR gửi quà cưới online Khang Vinh & Thuý Nhã" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'; this.previousElementSibling.style.display='block'">
             </div>
-            <a href="qr.jpg" download="QR-Qua-Cuoi-KhangVinh-ThuyNha.JPEG" class="copy-map-btn">
+            <a href="qr.JPEG" download="QR-Qua-Cuoi-KhangVinh-ThuyNha.JPEG" class="copy-map-btn">
                 Tải mã QR về máy
             </a>
         </div>
@@ -609,6 +708,78 @@
 
         window.addEventListener('DOMContentLoaded', syncGalleryImages);
         window.addEventListener('pageshow', syncGalleryImages);
+
+        // Điều khiển nhạc nền thiệp cưới
+        var bgMusic = document.getElementById('bgMusic');
+        var musicBtn = document.getElementById('musicBtn');
+        var musicTag = document.getElementById('musicTag');
+        var iconPlay = document.getElementById('iconPlay');
+        var iconMute = document.getElementById('iconMute');
+        var userPaused = false;
+
+        function updateMusicUI(isPlaying) {
+            if (isPlaying) {
+                musicBtn.classList.add('playing');
+                iconPlay.style.display = 'block';
+                iconMute.style.display = 'none';
+                musicTag.textContent = 'Đang phát';
+                setTimeout(function() {
+                    if (!bgMusic.paused) {
+                        musicTag.style.opacity = '0';
+                    }
+                }, 2500);
+            } else {
+                musicBtn.classList.remove('playing');
+                iconPlay.style.display = 'none';
+                iconMute.style.display = 'block';
+                musicTag.textContent = 'Bật nhạc';
+                musicTag.style.opacity = '1';
+            }
+        }
+
+        function tryAutoPlay() {
+            if (userPaused || !bgMusic) return;
+            var playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    updateMusicUI(true);
+                    removeInteractionListeners();
+                }).catch(function() {
+                    // Trình duyệt yêu cầu chạm màn hình trước khi phát
+                });
+            }
+        }
+
+        function removeInteractionListeners() {
+            ['touchstart', 'click', 'scroll', 'keydown'].forEach(function(evt) {
+                document.removeEventListener(evt, tryAutoPlay);
+            });
+        }
+
+        function toggleMusic(e) {
+            if (e) e.stopPropagation();
+            if (bgMusic.paused) {
+                userPaused = false;
+                bgMusic.play().then(function() {
+                    updateMusicUI(true);
+                    removeInteractionListeners();
+                }).catch(function() {
+                    musicTag.textContent = 'Chưa có file music.mp3';
+                    musicTag.style.opacity = '1';
+                });
+            } else {
+                userPaused = true;
+                bgMusic.pause();
+                updateMusicUI(false);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            tryAutoPlay();
+            ['touchstart', 'click', 'scroll', 'keydown'].forEach(function(evt) {
+                document.addEventListener(evt, tryAutoPlay, { passive: true });
+            });
+        });
 
         function copyMapLink(btn) {
             var mapUrl = 'https://maps.app.goo.gl/ME54SodkHJQWqFLUA?g_st=ic';
