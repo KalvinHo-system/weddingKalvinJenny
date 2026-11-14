@@ -14,8 +14,8 @@
             --text-dark: #2C2A29;
             --text-muted: #6E6A66;
             --accent-champagne: #B59A72;
-            --accent-champagne-dark: #9A805A;
-            --border-subtle: #EAE4DC;
+            --accent-champagne-dark: #967A50;
+            --border-subtle: #E8E1D7;
         }
         * {
             box-sizing: border-box;
@@ -27,238 +27,261 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            line-height: 1.7;
+            line-height: 1.65;
             font-weight: 300;
             -webkit-font-smoothing: antialiased;
         }
+
+        /* Header gọn gàng, cân đối */
         header {
-            padding: 90px 20px 70px;
+            padding: 46px 20px 28px;
             background-color: var(--bg-cream);
-            position: relative;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .tiger-crest {
+            width: 260px;
+            max-width: 78%;
+            height: auto;
+            margin: 0 auto 14px;
+            display: block;
         }
         .subtitle {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent-champagne);
             font-weight: 500;
-            margin-bottom: 18px;
+            margin-bottom: 10px;
         }
         h1 {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 3.4rem;
+            font-size: 3.1rem;
             font-weight: 400;
             margin: 0;
             color: var(--text-dark);
-            letter-spacing: 1px;
-            line-height: 1.15;
+            letter-spacing: 0.5px;
+            line-height: 1.12;
         }
         h1 span.amp {
             font-style: italic;
             color: var(--accent-champagne);
-            font-size: 2.8rem;
-            margin: 0 8px;
+            font-size: 2.5rem;
+            margin: 0 6px;
         }
         .header-date {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-style: italic;
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
-            margin-top: 18px;
+            margin-top: 10px;
             letter-spacing: 1px;
         }
         .divider {
-            width: 60px;
+            width: 56px;
             height: 1px;
             background-color: var(--accent-champagne);
-            margin: 35px auto;
-            opacity: 0.6;
+            margin: 22px auto 0;
+            opacity: 0.65;
         }
+
+        /* Container chính chặt chẽ */
         .container {
-            max-width: 880px;
+            max-width: 760px;
             margin: 0 auto;
-            padding: 0 20px 60px;
+            padding: 0 18px 44px;
         }
-        .invitation-card {
+
+        /* Card chung đồng bộ */
+        .card-box {
             background: var(--bg-card);
-            padding: 55px 35px;
+            padding: 38px 30px;
             border: 1px solid var(--border-subtle);
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(44, 42, 41, 0.03);
+            box-shadow: 0 8px 24px rgba(44, 42, 41, 0.03);
+            position: relative;
+        }
+        .card-box::after {
+            content: "";
+            position: absolute;
+            inset: 5px;
+            border: 1px solid rgba(181, 154, 114, 0.18);
+            pointer-events: none;
+        }
+
+        .invitation-card {
+            margin-bottom: 34px;
         }
         .invite-text {
-            max-width: 520px;
-            margin: 0 auto 40px;
-            font-size: 0.95rem;
+            max-width: 490px;
+            margin: 0 auto 26px;
+            font-size: 0.92rem;
             color: var(--text-muted);
         }
         .details-grid {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 50px;
+            gap: 36px;
             flex-wrap: wrap;
         }
         .detail-block {
-            min-width: 180px;
+            min-width: 165px;
         }
         .detail-label {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--accent-champagne);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 500;
         }
         .detail-value {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.65rem;
+            font-size: 1.55rem;
             color: var(--text-dark);
             font-weight: 500;
+            line-height: 1.25;
         }
         .detail-value a {
             color: inherit;
             text-decoration: none;
             border-bottom: 1px dashed var(--accent-champagne);
-            transition: color 0.3s ease;
+            transition: color 0.25s ease;
         }
         .detail-value a:hover {
             color: var(--accent-champagne);
         }
         .vertical-sep {
             width: 1px;
-            height: 50px;
+            height: 42px;
             background-color: var(--border-subtle);
         }
 
         /* Khu vực định vị Google Maps */
         .map-section {
-            margin-top: 40px;
-            padding-top: 32px;
+            margin-top: 26px;
+            padding-top: 24px;
             border-top: 1px solid var(--border-subtle);
         }
         .map-hint {
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             color: var(--text-muted);
-            margin: 0 auto 20px;
-            max-width: 440px;
+            margin: 0 auto 16px;
+            max-width: 430px;
         }
         .map-actions {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         .map-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 9px;
-            padding: 13px 28px;
+            gap: 8px;
+            padding: 11px 24px;
             background-color: var(--accent-champagne);
             color: #FFFFFF;
             text-decoration: none;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            letter-spacing: 2px;
+            letter-spacing: 1.8px;
             text-transform: uppercase;
             border: 1px solid var(--accent-champagne);
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
         .map-btn:hover {
             background-color: var(--accent-champagne-dark);
             border-color: var(--accent-champagne-dark);
-            transform: translateY(-1px);
         }
         .map-btn svg {
-            width: 16px;
-            height: 16px;
+            width: 15px;
+            height: 15px;
             flex-shrink: 0;
         }
         .copy-map-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 7px;
-            padding: 13px 22px;
+            gap: 6px;
+            padding: 11px 20px;
             background-color: transparent;
             color: var(--text-dark);
+            text-decoration: none;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.73rem;
             font-weight: 400;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.4px;
             text-transform: uppercase;
             border: 1px solid var(--border-subtle);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
         .copy-map-btn:hover {
             border-color: var(--accent-champagne);
             color: var(--accent-champagne);
         }
 
+        /* Khu vực ảnh kỷ niệm */
         .gallery-section {
-            margin-top: 20px;
+            margin-bottom: 34px;
         }
         .section-title {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 400;
             color: var(--text-dark);
-            margin: 0 0 8px;
+            margin: 0 0 4px;
+            line-height: 1.2;
         }
         .section-sub {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             letter-spacing: 1px;
-            margin-bottom: 35px;
+            margin-bottom: 22px;
         }
+        /* Grid 2 cột đều bề ngang, giữ nguyên tỉ lệ gốc từng ảnh (không crop) */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 18px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            align-items: start;
         }
         .photo-box {
             background-color: #F2EFE9;
             border: 1px solid var(--border-subtle);
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
+            width: 100%;
         }
-        .photo-box:nth-child(1),
-        .photo-box:nth-child(2) {
-            grid-column: span 3;
-            height: 360px;
-        }
-        .photo-box:nth-child(3),
-        .photo-box:nth-child(4),
-        .photo-box:nth-child(5) {
-            grid-column: span 2;
-            height: 280px;
+        /* Nếu tổng số ảnh lẻ, ảnh cuối căn giữa với bề ngang bằng đúng các ảnh trên */
+        .photo-box:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+            width: calc(50% - 7px);
+            justify-self: center;
         }
         .photo-box img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
             display: block;
-            transition: transform 0.6s ease;
+            transition: transform 0.5s ease;
         }
         .photo-box:hover img {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
         /* Ẩn mặc định, chỉ hiện khi ảnh bị lỗi tải */
         .missing-label {
             display: none;
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             letter-spacing: 1px;
-            padding: 15px;
+            padding: 40px 12px;
             text-align: center;
             border: 1px dashed var(--accent-champagne);
             background: rgba(255, 255, 255, 0.85);
+            margin: 10px;
         }
         .missing-label b {
             display: block;
@@ -266,40 +289,80 @@
             color: var(--text-dark);
             font-weight: 500;
             font-family: monospace;
-            font-size: 0.9rem;
+            font-size: 0.86rem;
         }
+
+        /* Mục gửi quà cưới online */
+        .gift-card {
+            margin-top: 0;
+        }
+        .gift-text {
+            max-width: 470px;
+            margin: 8px auto 22px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+        .qr-box {
+            max-width: 240px;
+            margin: 0 auto 18px;
+            padding: 12px;
+            background-color: var(--bg-cream);
+            border: 1px solid var(--border-subtle);
+        }
+        .qr-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .qr-box .missing-label {
+            margin: 0;
+            padding: 36px 12px;
+        }
+
         footer {
-            padding: 40px 20px 60px;
+            padding: 28px 20px 44px;
             border-top: 1px solid var(--border-subtle);
-            max-width: 600px;
+            max-width: 560px;
             margin: 0 auto;
         }
         footer p {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-style: italic;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
-            margin: 0 0 10px;
+            margin: 0 0 8px;
         }
         .copyright {
             font-family: 'Montserrat', sans-serif;
             font-style: normal;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--accent-champagne);
         }
 
-        @media (max-width: 680px) {
+        @media (max-width: 640px) {
+            header {
+                padding: 36px 16px 22px;
+            }
+            .tiger-crest {
+                width: 220px;
+            }
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.35rem;
+            }
+            h1 span.amp {
+                font-size: 2rem;
+            }
+            .card-box {
+                padding: 28px 18px;
             }
             .vertical-sep {
                 display: none;
             }
             .details-grid {
                 flex-direction: column;
-                gap: 25px;
+                gap: 18px;
             }
             .map-actions {
                 flex-direction: column;
@@ -308,15 +371,17 @@
             .map-btn,
             .copy-map-btn {
                 width: 100%;
-                max-width: 300px;
+                max-width: 280px;
             }
-            .photo-box:nth-child(1),
-            .photo-box:nth-child(2),
-            .photo-box:nth-child(3),
-            .photo-box:nth-child(4),
-            .photo-box:nth-child(5) {
-                grid-column: span 6;
-                height: 320px;
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .photo-box:last-child:nth-child(odd) {
+                width: 100%;
+            }
+            .qr-box {
+                max-width: 220px;
             }
         }
     </style>
@@ -324,6 +389,112 @@
 <body>
 
     <header>
+        <!-- Biểu tượng Song Hổ High-Five 2D màu vàng kim -->
+        <svg class="tiger-crest" viewBox="0 0 280 108" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Biểu tượng Song Hổ đập tay high five màu vàng kim">
+            <defs>
+                <linearGradient id="goldFoil" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#E5C78E"/>
+                    <stop offset="38%" stop-color="#B59A72"/>
+                    <stop offset="70%" stop-color="#DFC086"/>
+                    <stop offset="100%" stop-color="#8C6F45"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Hổ bên trái giơ tay đập high five -->
+            <g id="tiger-left">
+                <!-- Khối thân, đầu gầm nhe nanh, tay giơ cao high-five & đuôi uốn cong -->
+                <path fill="url(#goldFoil)" d="
+                    M 68 82
+                    C 51 82, 40 72, 41 58
+                    C 42 48, 49 45, 51 50
+                    C 52 54, 48 56, 48 60
+                    C 48 67, 55 72, 67 72
+                    C 68 60, 73 50, 81 42
+                    C 82 36, 82 30, 82 24
+                    C 80 20, 82 16, 86 17
+                    C 89 18, 90 20, 91 21
+                    C 96 20, 102 21, 107 24
+                    L 113 26
+                    C 115 27, 115 30, 113 32
+                    L 110 32.5
+                    L 109 36
+                    L 107 32.5
+                    L 101 33
+                    L 107 37
+                    L 110 37.5
+                    C 111 39.5, 109 41.5, 105 42
+                    C 101 42.5, 97 42, 94 41.5
+                    L 96 44.5
+                    L 90 43.5
+                    L 92 47
+                    C 104 42, 117 34, 130 23
+                    C 133 20, 136 18, 138.5 18.5
+                    C 139.8 19, 139.8 22, 139.5 26
+                    C 139 30, 136.5 33, 133 34.5
+                    C 121 43, 111 50, 102 55
+                    C 109 56.5, 115 59, 120 63
+                    C 122 64.5, 121.5 67.5, 118.5 68
+                    C 115.5 68.5, 112.5 67, 109.5 65
+                    C 105.5 62.5, 101.5 61.5, 98 61.5
+                    C 99 71, 101 81, 103 91
+                    L 110 93
+                    C 112 94, 112 97, 109 97
+                    L 96 97
+                    C 94 97, 93 95, 93 92
+                    L 89 75
+                    L 83 75
+                    L 79 92
+                    L 85 94
+                    C 87 95, 87 97, 84 97
+                    L 71 97
+                    C 69 97, 68 95, 69 92
+                    L 72 75
+                    C 70 78, 69 81, 68 82 Z
+                "/>
+
+                <!-- Mắt xếch sắc bén -->
+                <polygon fill="#FAF8F5" points="98,24.5 104.5,26 99.5,28"/>
+                <!-- Vằn trán & gò má -->
+                <polygon fill="#FAF8F5" points="91.5,21.5 94.5,21.5 92.5,25.5"/>
+                <polygon fill="#FAF8F5" points="87.5,29 93.5,30.5 88.5,32"/>
+                <polygon fill="#FAF8F5" points="85.5,35 91.5,36.5 86.5,38"/>
+
+                <!-- Vằn tay giơ high-five -->
+                <polygon fill="#FAF8F5" points="116,36.5 119,34 121,39"/>
+                <polygon fill="#FAF8F5" points="123.5,31 126.5,28.5 128,33.5"/>
+
+                <!-- Hệ vằn hổ sắc nhọn dọc lưng & sườn -->
+                <polygon fill="#FAF8F5" points="81,44 87,46 79,49"/>
+                <polygon fill="#FAF8F5" points="77,51 84,53 75,56"/>
+                <polygon fill="#FAF8F5" points="74,59 81,60.5 73,64"/>
+                <polygon fill="#FAF8F5" points="72,67 79,68 72,71"/>
+
+                <!-- Vằn hai chân -->
+                <polygon fill="#FAF8F5" points="92,80 98,80.5 93,83.5"/>
+                <polygon fill="#FAF8F5" points="72,81 78,81.5 71,84.5"/>
+
+                <!-- Vằn khoang đuôi -->
+                <polygon fill="#FAF8F5" points="55,69 58,73 53,73"/>
+                <polygon fill="#FAF8F5" points="44,65 48,66 45,69"/>
+                <polygon fill="#FAF8F5" points="41,56 46,57 42,60"/>
+            </g>
+
+            <!-- Hổ bên phải (đối xứng hoàn hảo, cùng đập tay high five) -->
+            <use href="#tiger-left" transform="translate(280, 0) scale(-1, 1)"/>
+
+            <!-- Tia sáng lóe lên tại điểm chạm tay High Five -->
+            <g stroke="url(#goldFoil)" stroke-width="1.8" stroke-linecap="round">
+                <line x1="140" y1="13" x2="140" y2="6"/>
+                <line x1="133" y1="15" x2="128" y2="9"/>
+                <line x1="147" y1="15" x2="152" y2="9"/>
+                <line x1="131" y1="21" x2="125" y2="20"/>
+                <line x1="149" y1="21" x2="155" y2="20"/>
+            </g>
+
+            <!-- Đường chỉ đế thanh mảnh -->
+            <line x1="36" y1="101" x2="244" y2="101" stroke="url(#goldFoil)" stroke-width="0.9" stroke-opacity="0.65"/>
+        </svg>
+
         <div class="subtitle">Save The Date</div>
         <h1>Khang Vinh <span class="amp">&amp;</span> Thuý Nhã</h1>
         <div class="header-date">01 . 01 . 2027 &mdash; Bến Tre</div>
@@ -331,7 +502,8 @@
     </header>
 
     <div class="container">
-        <div class="invitation-card">
+        <!-- Thiệp mời & Định vị -->
+        <div class="card-box invitation-card">
             <p class="invite-text">
                 Trân trọng kính mời Quý khách đến chung vui và chứng kiến khoảnh khắc khởi đầu hành trình hạnh phúc của chúng tôi.
             </p>
@@ -368,6 +540,7 @@
             </div>
         </div>
 
+        <!-- Album ảnh kỷ niệm -->
         <div class="gallery-section">
             <h2 class="section-title">Our Moments</h2>
             <div class="section-sub">Kỷ niệm ngày chung đôi</div>
@@ -395,6 +568,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- Mục gửi quà cưới online -->
+        <div class="card-box gift-card">
+            <div class="detail-label">Wedding Gift</div>
+            <h2 class="section-title">Gửi Quà Cưới Online</h2>
+            <p class="gift-text">
+                Nếu không thể đến chung vui trực tiếp, Quý khách có thể gửi lời chúc và quà mừng cưới online cho chúng tôi qua mã QR bên dưới. Xin chân thành cảm ơn tình cảm của Quý khách!
+            </p>
+            <div class="qr-box">
+                <span class="missing-label">Chưa có ảnh<b>qr.JPEG</b></span>
+                <img src="qr.JPEG" alt="Mã QR gửi quà cưới online Khang Vinh & Thuý Nhã" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'; this.previousElementSibling.style.display='block'">
+            </div>
+            <a href="qr.JPEG" download="QR-Qua-Cuoi-KhangVinh-ThuyNha.JPEG" class="copy-map-btn">
+                Tải mã QR về máy
+            </a>
+        </div>
     </div>
 
     <footer>
@@ -404,7 +593,7 @@
 
     <script>
         function syncGalleryImages() {
-            document.querySelectorAll('.photo-box img').forEach(function(img) {
+            document.querySelectorAll('.photo-box img, .qr-box img').forEach(function(img) {
                 var label = img.previousElementSibling;
                 if (img.complete) {
                     if (img.naturalWidth > 0) {
