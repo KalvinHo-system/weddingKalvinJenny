@@ -122,6 +122,56 @@
             pointer-events: none;
         }
 
+        /* Khu vực đếm ngược tới giờ cử hành hôn lễ */
+        .countdown-card {
+            margin-bottom: 24px;
+            padding: 28px 24px;
+        }
+        .countdown-sub {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.12rem;
+            color: var(--text-muted);
+            margin: 2px 0 18px;
+        }
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .countdown-item {
+            background-color: var(--bg-cream);
+            border: 1px solid var(--border-subtle);
+            padding: 14px 8px 12px;
+            position: relative;
+        }
+        .countdown-num {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .countdown-unit {
+            font-size: 0.65rem;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+            color: var(--accent-champagne);
+            font-weight: 500;
+            margin-top: 7px;
+        }
+        .countdown-done {
+            display: none;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--accent-champagne-dark);
+            padding: 10px 0 4px;
+        }
+
         .invitation-card {
             margin-bottom: 34px;
         }
@@ -134,7 +184,7 @@
         .details-grid {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             gap: 36px;
             flex-wrap: wrap;
         }
@@ -187,6 +237,7 @@
             width: 1px;
             height: 64px;
             background-color: var(--border-subtle);
+            align-self: center;
         }
 
         /* Khu vực định vị Google Maps */
@@ -465,11 +516,28 @@
             .card-box {
                 padding: 28px 18px;
             }
+            .countdown-card {
+                padding: 22px 14px;
+            }
+            .countdown-grid {
+                gap: 8px;
+            }
+            .countdown-item {
+                padding: 12px 4px 10px;
+            }
+            .countdown-num {
+                font-size: 1.75rem;
+            }
+            .countdown-unit {
+                font-size: 0.58rem;
+                letter-spacing: 1.5px;
+            }
             .vertical-sep {
                 display: none;
             }
             .details-grid {
                 flex-direction: column;
+                align-items: center;
                 gap: 18px;
             }
             .detail-address {
@@ -649,6 +717,33 @@
     </header>
 
     <div class="container">
+        <!-- Đếm ngược tới 10:00 sáng ngày 01/01/2027 -->
+        <div class="card-box countdown-card" aria-label="Đếm ngược tới lễ cưới">
+            <div class="detail-label">Đếm Ngược Ngày Chung Đôi</div>
+            <div class="countdown-sub">10:00 Sáng &bull; Thứ Sáu, 01.01.2027</div>
+            <div id="countdownGrid" class="countdown-grid">
+                <div class="countdown-item">
+                    <div id="cdDays" class="countdown-num">--</div>
+                    <div class="countdown-unit">Ngày</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="cdHours" class="countdown-num">--</div>
+                    <div class="countdown-unit">Giờ</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="cdMinutes" class="countdown-num">--</div>
+                    <div class="countdown-unit">Phút</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="cdSeconds" class="countdown-num">--</div>
+                    <div class="countdown-unit">Giây</div>
+                </div>
+            </div>
+            <div id="countdownDone" class="countdown-done">
+                Hôn lễ đang diễn ra — Hân hạnh được đón tiếp Quý khách!
+            </div>
+        </div>
+
         <!-- Thiệp mời & Định vị -->
         <div class="card-box invitation-card">
             <p class="invite-text">
@@ -659,6 +754,7 @@
                 <div class="detail-block">
                     <div class="detail-label">Thời Gian</div>
                     <div class="detail-value">01 Tháng 01, 2027</div>
+                    <div class="detail-address">Lúc 10:00 Sáng</div>
                 </div>
                 <div class="vertical-sep"></div>
                 <div class="detail-block">
@@ -742,6 +838,47 @@
     </footer>
 
     <script>
+        // Đếm ngược tới 10:00 sáng ngày 01/01/2027 (Giờ Việt Nam UTC+7)
+        (function initCountdown() {
+            var targetDate = new Date('2027-01-01T10:00:00+07:00').getTime();
+            var elDays = document.getElementById('cdDays');
+            var elHours = document.getElementById('cdHours');
+            var elMinutes = document.getElementById('cdMinutes');
+            var elSeconds = document.getElementById('cdSeconds');
+            var elGrid = document.getElementById('countdownGrid');
+            var elDone = document.getElementById('countdownDone');
+            var timerId = null;
+
+            function padZero(num) {
+                return num < 10 ? '0' + num : String(num);
+            }
+
+            function updateCountdown() {
+                var now = Date.now();
+                var diff = targetDate - now;
+
+                if (diff <= 0) {
+                    if (elGrid) elGrid.style.display = 'none';
+                    if (elDone) elDone.style.display = 'block';
+                    if (timerId) clearInterval(timerId);
+                    return;
+                }
+
+                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                var minutes = Math.floor((diff / (1000 * 60)) % 60);
+                var seconds = Math.floor((diff / 1000) % 60);
+
+                if (elDays) elDays.textContent = padZero(days);
+                if (elHours) elHours.textContent = padZero(hours);
+                if (elMinutes) elMinutes.textContent = padZero(minutes);
+                if (elSeconds) elSeconds.textContent = padZero(seconds);
+            }
+
+            updateCountdown();
+            timerId = setInterval(updateCountdown, 1000);
+        })();
+
         function syncGalleryImages() {
             document.querySelectorAll('.photo-box img, .qr-box img').forEach(function(img) {
                 var label = img.previousElementSibling;
