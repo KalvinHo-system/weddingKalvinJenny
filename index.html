@@ -30,9 +30,6 @@
             font-weight: 300;
             -webkit-font-smoothing: antialiased;
         }
-        .serif {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-        }
         header {
             padding: 90px 20px 70px;
             background-color: var(--bg-cream);
@@ -144,7 +141,6 @@
             grid-template-columns: repeat(6, 1fr);
             gap: 18px;
         }
-        /* Bố cục bất đối xứng tinh tế: 2 tấm lớn ở trên, 3 tấm nhỏ ở dưới */
         .photo-box {
             background-color: #F2EFE9;
             border: 1px solid var(--border-subtle);
@@ -153,7 +149,6 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            transition: transform 0.4s ease;
         }
         .photo-box:nth-child(1),
         .photo-box:nth-child(2) {
@@ -171,6 +166,8 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            position: relative;
+            z-index: 2;
             transition: transform 0.6s ease;
         }
         .photo-box:hover img {
@@ -178,6 +175,7 @@
         }
         .missing-label {
             position: absolute;
+            z-index: 1;
             color: var(--text-muted);
             font-size: 0.8rem;
             letter-spacing: 1px;
@@ -248,7 +246,6 @@
     </header>
 
     <div class="container">
-        <!-- Thiệp mời tối giản sang trọng -->
         <div class="invitation-card">
             <p class="invite-text">
                 Trân trọng kính mời Quý khách đến chung vui và chứng kiến khoảnh khắc khởi đầu hành trình hạnh phúc của chúng tôi.
@@ -267,7 +264,6 @@
             </div>
         </div>
 
-        <!-- Album 5 tấm hình (h1.JPEG đến h5.JPEG) -->
         <div class="gallery-section">
             <h2 class="section-title">Our Moments</h2>
             <div class="section-sub">Kỷ niệm ngày chung đôi</div>
@@ -275,23 +271,23 @@
             <div class="gallery">
                 <div class="photo-box">
                     <span class="missing-label">Chưa có ảnh<b>h1.JPEG</b></span>
-                    <img src="h1.JPEG" alt="Khang Vinh & Thuý Nhã 1" onerror="this.style.display='none'">
+                    <img src="h1.JPEG" alt="Khang Vinh & Thuý Nhã 1" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
                 </div>
                 <div class="photo-box">
                     <span class="missing-label">Chưa có ảnh<b>h2.JPEG</b></span>
-                    <img src="h2.JPEG" alt="Khang Vinh & Thuý Nhã 2" onerror="this.style.display='none'">
+                    <img src="h2.JPEG" alt="Khang Vinh & Thuý Nhã 2" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
                 </div>
                 <div class="photo-box">
                     <span class="missing-label">Chưa có ảnh<b>h3.JPEG</b></span>
-                    <img src="h3.JPEG" alt="Khang Vinh & Thuý Nhã 3" onerror="this.style.display='none'">
+                    <img src="h3.JPEG" alt="Khang Vinh & Thuý Nhã 3" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
                 </div>
                 <div class="photo-box">
                     <span class="missing-label">Chưa có ảnh<b>h4.JPEG</b></span>
-                    <img src="h4.JPEG" alt="Khang Vinh & Thuý Nhã 4" onerror="this.style.display='none'">
+                    <img src="h4.JPEG" alt="Khang Vinh & Thuý Nhã 4" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
                 </div>
                 <div class="photo-box">
                     <span class="missing-label">Chưa có ảnh<b>h5.JPEG</b></span>
-                    <img src="h5.JPEG" alt="Khang Vinh & Thuý Nhã 5" onerror="this.style.display='none'">
+                    <img src="h5.JPEG" alt="Khang Vinh & Thuý Nhã 5" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
                 </div>
             </div>
         </div>
