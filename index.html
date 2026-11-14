@@ -173,7 +173,7 @@
         }
 
         .invitation-card {
-            margin-bottom: 34px;
+            margin-bottom: 24px;
         }
         .invite-text {
             max-width: 490px;
@@ -305,6 +305,185 @@
         .copy-map-btn:hover {
             border-color: var(--accent-champagne);
             color: var(--accent-champagne);
+        }
+
+        /* Khu vực Xác Nhận Tham Dự (RSVP) */
+        .rsvp-card {
+            margin-bottom: 34px;
+        }
+        .rsvp-intro {
+            max-width: 470px;
+            margin: 8px auto 24px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+        .rsvp-form {
+            max-width: 440px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 14px;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+            color: var(--accent-champagne-dark);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 11px 14px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            background-color: var(--bg-cream);
+            border: 1px solid var(--border-subtle);
+            border-radius: 0;
+            outline: none;
+            transition: border-color 0.25s ease, background-color 0.25s ease;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-control:focus {
+            border-color: var(--accent-champagne);
+            background-color: #FFFFFF;
+        }
+        .select-wrap {
+            position: relative;
+        }
+        .select-wrap::after {
+            content: "";
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px;
+            height: 7px;
+            border-right: 1.5px solid var(--accent-champagne-dark);
+            border-bottom: 1.5px solid var(--accent-champagne-dark);
+            transform: translateY(-65%) rotate(45deg);
+            pointer-events: none;
+        }
+        .select-wrap select.form-control {
+            padding-right: 34px;
+            cursor: pointer;
+        }
+        .custom-group-wrap {
+            display: none;
+            margin-top: 10px;
+        }
+        .stepper {
+            display: flex;
+            align-items: stretch;
+            border: 1px solid var(--border-subtle);
+            background-color: var(--bg-cream);
+        }
+        .stepper-btn {
+            width: 38px;
+            background: transparent;
+            border: none;
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            padding: 0;
+        }
+        .stepper-btn:hover {
+            background-color: rgba(181, 154, 114, 0.15);
+            color: var(--accent-champagne-dark);
+        }
+        .stepper input {
+            width: 100%;
+            min-width: 0;
+            border: none;
+            border-left: 1px solid var(--border-subtle);
+            border-right: 1px solid var(--border-subtle);
+            background: transparent;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            padding: 11px 4px;
+            outline: none;
+            -moz-appearance: textfield;
+        }
+        .stepper input::-webkit-outer-spin-button,
+        .stepper input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .rsvp-submit-btn {
+            width: 100%;
+            margin-top: 8px;
+            padding: 13px 24px;
+            background-color: var(--accent-champagne);
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid var(--accent-champagne);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .rsvp-submit-btn:hover:not(:disabled) {
+            background-color: var(--accent-champagne-dark);
+            border-color: var(--accent-champagne-dark);
+        }
+        .rsvp-submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .rsvp-status {
+            display: none;
+            margin-top: 16px;
+            padding: 14px 16px;
+            font-size: 0.85rem;
+            line-height: 1.55;
+            text-align: center;
+            border: 1px solid var(--border-subtle);
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+        }
+        .rsvp-status.success {
+            border-color: var(--accent-champagne);
+            background-color: #FAF6EF;
+        }
+        .rsvp-status.error {
+            border-color: #C97A7A;
+            background-color: #FDF6F6;
+            color: #8A3B3B;
+        }
+        .rsvp-reset-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 7px 16px;
+            background: transparent;
+            border: 1px solid var(--accent-champagne);
+            color: var(--accent-champagne-dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .rsvp-reset-btn:hover {
+            background-color: var(--accent-champagne);
+            color: #FFFFFF;
         }
 
         /* Khu vực ảnh kỷ niệm */
@@ -552,6 +731,10 @@
                 width: 100%;
                 max-width: 280px;
             }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
             .gallery {
                 grid-template-columns: 1fr;
                 gap: 12px;
@@ -786,6 +969,56 @@
             </div>
         </div>
 
+        <!-- Xác nhận tham dự (RSVP) -->
+        <div class="card-box rsvp-card" id="rsvpSection">
+            <div class="detail-label">RSVP</div>
+            <h2 class="section-title">Xác Nhận Tham Dự</h2>
+            <p class="rsvp-intro">
+                Vui lòng đăng ký thông tin tham dự bên dưới để gia đình chúng tôi chuẩn bị đón tiếp Quý khách chu đáo nhất.
+            </p>
+
+            <form id="rsvpForm" class="rsvp-form" onsubmit="submitRSVP(event)">
+                <div class="form-group">
+                    <label class="form-label" for="rsvpName">Tên khách mời *</label>
+                    <input type="text" id="rsvpName" class="form-control" placeholder="Nhập họ và tên của bạn" required autocomplete="name">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="rsvpGroup">Nhóm *</label>
+                        <div class="select-wrap">
+                            <select id="rsvpGroup" class="form-control" onchange="toggleCustomGroup(this.value)">
+                                <option value="Nhà Trai">Nhà Trai</option>
+                                <option value="Nhà Gái">Nhà Gái</option>
+                                <option value="Bạn Chú Rể">Bạn Chú Rể</option>
+                                <option value="Bạn Cô Dâu">Bạn Cô Dâu</option>
+                                <option value="Đồng Nghiệp">Đồng Nghiệp</option>
+                                <option value="Khác">Khác (tự nhập)</option>
+                            </select>
+                        </div>
+                        <div id="customGroupWrap" class="custom-group-wrap">
+                            <input type="text" id="rsvpGroupCustom" class="form-control" placeholder="Nhập tên nhóm (VD: Bạn Đại Học)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="rsvpCount">Số người *</label>
+                        <div class="stepper">
+                            <button type="button" class="stepper-btn" onclick="changeGuestCount(-1)" aria-label="Giảm số người">&minus;</button>
+                            <input type="number" id="rsvpCount" value="1" min="1" max="20" required>
+                            <button type="button" class="stepper-btn" onclick="changeGuestCount(1)" aria-label="Tăng số người">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="rsvpSubmitBtn" class="rsvp-submit-btn">
+                    Gửi Xác Nhận Tham Dự
+                </button>
+            </form>
+
+            <div id="rsvpStatus" class="rsvp-status" role="status" aria-live="polite"></div>
+        </div>
+
         <!-- Album ảnh kỷ niệm -->
         <div class="gallery-section">
             <h2 class="section-title">Our Moments</h2>
@@ -838,6 +1071,113 @@
     </footer>
 
     <script>
+        // =========================================================================
+        // CẤU HÌNH KẾT NỐI GOOGLE SHEET (ID: 1-Ltli4Ynn0W6Ku-neJq74RUf-KJ9szSU7XagPlWT_14)
+        // Dán link Web App sau khi Deploy từ Google Apps Script vào biến bên dưới:
+        // =========================================================================
+        var GOOGLE_SCRIPT_URL = 'DAN_LINK_WEB_APP_APPS_SCRIPT_VAO_DAY';
+
+        function toggleCustomGroup(val) {
+            var wrap = document.getElementById('customGroupWrap');
+            var customInput = document.getElementById('rsvpGroupCustom');
+            if (val === 'Khác') {
+                wrap.style.display = 'block';
+                customInput.focus();
+            } else {
+                wrap.style.display = 'none';
+            }
+        }
+
+        function changeGuestCount(delta) {
+            var input = document.getElementById('rsvpCount');
+            var current = parseInt(input.value, 10) || 1;
+            var next = current + delta;
+            if (next < 1) next = 1;
+            if (next > 20) next = 20;
+            input.value = next;
+        }
+
+        function resetRSVPForm() {
+            var form = document.getElementById('rsvpForm');
+            var statusBox = document.getElementById('rsvpStatus');
+            form.reset();
+            document.getElementById('rsvpCount').value = 1;
+            document.getElementById('customGroupWrap').style.display = 'none';
+            form.style.display = 'block';
+            statusBox.style.display = 'none';
+            document.getElementById('rsvpName').focus();
+        }
+
+        function submitRSVP(e) {
+            e.preventDefault();
+            var nameInput = document.getElementById('rsvpName');
+            var groupSelect = document.getElementById('rsvpGroup');
+            var groupCustom = document.getElementById('rsvpGroupCustom');
+            var countInput = document.getElementById('rsvpCount');
+            var submitBtn = document.getElementById('rsvpSubmitBtn');
+            var statusBox = document.getElementById('rsvpStatus');
+            var form = document.getElementById('rsvpForm');
+
+            var ten = nameInput.value.trim();
+            var nhom = groupSelect.value === 'Khác' && groupCustom.value.trim()
+                ? groupCustom.value.trim()
+                : groupSelect.value;
+            var soNguoi = parseInt(countInput.value, 10) || 1;
+
+            if (!ten) {
+                nameInput.focus();
+                return;
+            }
+
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.indexOf('https://script.google.com/') !== 0) {
+                statusBox.className = 'rsvp-status error';
+                statusBox.innerHTML = 'Chưa gắn link Google Apps Script Web App.<br>Vui lòng mở file <b>index.html</b> và dán link Web App vào biến <code>GOOGLE_SCRIPT_URL</code>.';
+                statusBox.style.display = 'block';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Đang gửi xác nhận...';
+            statusBox.style.display = 'none';
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    ten: ten,
+                    nhom: nhom,
+                    soNguoi: soNguoi
+                })
+            }).then(function() {
+                form.style.display = 'none';
+                statusBox.className = 'rsvp-status success';
+                statusBox.innerHTML =
+                    '<strong>&#10003; Xác nhận tham dự thành công!</strong><br>' +
+                    'Cảm ơn <b>' + escapeHtml(ten) + '</b> (' + escapeHtml(nhom) + ' &bull; ' + soNguoi + ' người).<br>' +
+                    'Thông tin đã được ghi nhận vào danh sách khách mời.<br>' +
+                    '<button type="button" class="rsvp-reset-btn" onclick="resetRSVPForm()">Đăng ký thêm khách khác</button>';
+                statusBox.style.display = 'block';
+            }).catch(function() {
+                statusBox.className = 'rsvp-status error';
+                statusBox.textContent = 'Có lỗi kết nối mạng, Quý khách vui lòng thử gửi lại nhé.';
+                statusBox.style.display = 'block';
+            }).finally(function() {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Gửi Xác Nhận Tham Dự';
+            });
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
         // Đếm ngược tới 10:00 sáng ngày 01/01/2027 (Giờ Việt Nam UTC+7)
         (function initCountdown() {
             var targetDate = new Date('2027-01-01T10:00:00+07:00').getTime();
