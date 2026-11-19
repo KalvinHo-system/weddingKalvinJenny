@@ -46,7 +46,7 @@
         <button type="submit" class="rsvp-submit-btn">Gửi Xác Nhận Tham Dự</button>
       </form>
       <div id="rsvpStatus" class="rsvp-status" role="status" aria-live="polite"></div>
-      <button type="button" id="giftToggle" class="gift-toggle" aria-controls="giftCard" aria-expanded="false">Thật tiếc! bạn đã có kế hoạch khác, không thể tham dự bữa tiệc, không thể tham dự bữa tiệc? Gửi lời chúc mừng nhé!</button>
+      <button type="button" id="giftToggle" class="gift-toggle" aria-controls="giftCard" aria-expanded="false">Thật tiếc! bạn đã có kế hoạch khác, không thể tham dự bữa tiệc? Gửi lời chúc mừng nhé!</button>
     </section>
     <section class="gallery-section"><h2 class="section-title">Our Moments</h2><div class="section-sub">Kỷ niệm ngày chung đôi</div><div class="gallery"><div class="photo-box"><img src="h1.JPEG" alt="Khang Vinh &amp; Thuý Nhã 1"></div><div class="photo-box"><img src="h2.JPEG" alt="Khang Vinh &amp; Thuý Nhã 2"></div><div class="photo-box"><img src="h3.JPEG" alt="Khang Vinh &amp; Thuý Nhã 3"></div><div class="photo-box"><img src="h4.JPEG" alt="Khang Vinh &amp; Thuý Nhã 4"></div><div class="photo-box"><img src="h5.JPEG" alt="Khang Vinh &amp; Thuý Nhã 5"></div></div></section>
     <section class="card-box gift-card" id="giftCard" hidden>
@@ -99,29 +99,104 @@
       var music = document.getElementById('weddingMusic');
       var button = document.getElementById('musicToggle');
       var label = document.getElementById('musicLabel');
+      var attemptedKey = 'weddingMusicAutoAttempted';
+      var fallbackKey = 'weddingMusicGestureAttempted';
+      var startedKey = 'weddingMusicStarted';
+      var scrollKey = 'weddingAutoScrollStarted';
+      var scrolling = false;
+      var animationFrame = null;
+      var lastFrameTime = 0;
+
+      function sessionGet(key) {
+        try { return sessionStorage.getItem(key); } catch (error) { return null; }
+      }
+      function sessionSet(key, value) {
+        try { sessionStorage.setItem(key, value); } catch (error) { /* Continue without session storage. */ }
+      }
+      function setMusicState(isPlaying) {
+        button.setAttribute('aria-pressed', String(isPlaying));
+        button.setAttribute('aria-label', isPlaying ? 'Tắt nhạc nền' : 'Bật nhạc nền');
+        label.textContent = isPlaying ? 'Tắt nhạc' : 'Bật nhạc';
+      }
+      function startMusic(isGestureRetry) {
+        if (!music.paused || sessionGet(startedKey) === 'true') return;
+        if (isGestureRetry) {
+          if (sessionGet(fallbackKey) === 'true') return;
+          sessionSet(fallbackKey, 'true');
+        }
+        music.play().then(function () {
+          sessionSet(startedKey, 'true');
+          setMusicState(true);
+        }).catch(function (error) {
+          console.info('Music autoplay requires a user gesture:', error);
+          label.textContent = 'Chạm để bật nhạc';
+        });
+      }
+      function stopScroll() {
+        if (!scrolling) return;
+        scrolling = false;
+        if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+      function scrollFrame(time) {
+        if (!scrolling) return;
+        if (!lastFrameTime) lastFrameTime = time;
+        var elapsed = Math.min(time - lastFrameTime, 50);
+        lastFrameTime = time;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (window.scrollY >= maxScroll) {
+          stopScroll();
+          return;
+        }
+        window.scrollBy(0, (elapsed / 1000) * 18);
+        animationFrame = requestAnimationFrame(scrollFrame);
+      }
+      function stopOnUserInput() {
+        stopScroll();
+      }
+      function onFirstGesture() {
+        stopScroll();
+        startMusic(true);
+        document.removeEventListener('touchstart', onFirstGesture, true);
+        document.removeEventListener('pointerdown', onFirstGesture, true);
+        document.removeEventListener('keydown', onFirstGesture, true);
+        document.removeEventListener('wheel', onFirstGesture, true);
+      }
+      document.addEventListener('touchstart', onFirstGesture, { capture: true, passive: true });
+      document.addEventListener('pointerdown', onFirstGesture, true);
+      document.addEventListener('keydown', onFirstGesture, true);
+      document.addEventListener('wheel', onFirstGesture, { capture: true, passive: true });
+
+      if (!sessionGet(attemptedKey)) {
+        sessionSet(attemptedKey, 'true');
+        startMusic(false);
+      } else if (sessionGet(startedKey) === 'true' && !music.paused) {
+        setMusicState(true);
+      }
+
+      if (!sessionGet(scrollKey) && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        sessionSet(scrollKey, 'true');
+        scrolling = true;
+        animationFrame = requestAnimationFrame(scrollFrame);
+      }
+
       button.addEventListener('click', function () {
         if (music.paused) {
           button.disabled = true;
           music.play().then(function () {
-            button.setAttribute('aria-pressed', 'true');
-            button.setAttribute('aria-label', 'Tắt nhạc nền');
-            label.textContent = 'Tắt nhạc';
+            sessionSet(startedKey, 'true');
+            setMusicState(true);
           }).catch(function (error) {
             console.error('Không thể phát nhạc:', error);
             label.textContent = 'Thử lại';
           }).finally(function () { button.disabled = false; });
         } else {
           music.pause();
-          button.setAttribute('aria-pressed', 'false');
-          button.setAttribute('aria-label', 'Bật nhạc nền');
-          label.textContent = 'Bật nhạc';
+          setMusicState(false);
         }
       });
-      music.addEventListener('ended', function () {
-        button.setAttribute('aria-pressed', 'false');
-        button.setAttribute('aria-label', 'Bật nhạc nền');
-        label.textContent = 'Bật nhạc';
-      });
+      music.addEventListener('pause', function () { setMusicState(false); });
+      music.addEventListener('play', function () { setMusicState(true); });
     })();
   </script>
 </body>
