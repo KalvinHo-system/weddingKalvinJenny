@@ -17,10 +17,36 @@
     .gift-toggle{display:block;position:relative;z-index:1;width:100%;max-width:440px;margin:18px auto 0;padding:12px 16px;background:transparent;border:1px solid var(--accent-champagne);color:var(--accent-dark);font:400 .78rem/1.5 Montserrat,sans-serif;cursor:pointer}.gift-toggle:hover{background:#b59a7218}.gift-toggle:focus-visible,.music-toggle:focus-visible{outline:2px solid var(--accent-dark);outline-offset:3px}.gallery-section{margin:0 0 34px}.section-sub{font-size:.82rem;color:var(--text-muted);margin:0 0 22px}.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:start}.photo-box{border:1px solid var(--border);overflow:hidden}.photo-box img{display:block;width:100%;height:auto}.gift-card{margin-top:0}.gift-card[hidden]{display:none}.gift-text{margin:8px auto 22px}.qr-box{max-width:240px;margin:0 auto 18px;padding:12px;background:var(--bg-cream);border:1px solid var(--border)}.qr-box img{display:block;width:100%;height:auto}
     footer{max-width:560px;margin:auto;padding:28px 20px 64px;border-top:1px solid var(--border);color:var(--text-muted);font:italic 1.15rem 'Cormorant Garamond',Georgia,serif}.copyright{font:500 .72rem Montserrat,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--accent-champagne)}
     .music-toggle{position:fixed;right:18px;bottom:18px;z-index:5;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--accent-champagne);border-radius:50%;background:#fff;color:var(--accent-dark);font-size:1.15rem;line-height:1;box-shadow:0 4px 16px #2c2a2918;cursor:pointer;transition:background-color .25s ease,color .25s ease,transform .2s ease}.music-toggle:hover{transform:scale(1.05)}.music-toggle[aria-pressed="true"]{background:var(--accent-champagne);color:#fff}.music-toggle:disabled{opacity:.65;cursor:wait}
+    
+    /* NEW: Overlay styles */
+    .intro-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-cream); z-index: 9999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .intro-overlay.hidden { opacity: 0; visibility: hidden; }
+    .intro-content { text-align: center; padding: 20px; animation: pulse 2s infinite ease-in-out; cursor: pointer; }
+    .intro-title { font: 400 2.5rem/1.2 'Cormorant Garamond', Georgia, serif; color: var(--accent-champagne); margin-bottom: 15px; }
+    .intro-btn {
+      background: var(--accent-champagne); color: #fff; border: none; padding: 12px 30px;
+      font: 500 0.85rem Montserrat, sans-serif; letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; border-radius: 4px; box-shadow: 0 4px 12px rgba(181, 154, 114, 0.3);
+    }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+    
     @media(max-width:640px){header{padding:36px 16px 22px}.tiger-crest{width:220px}h1{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 10px;font-size:clamp(1.65rem,6.6vw,2.35rem)}h1 .couple-name:first-child,h1 .couple-name:last-child{text-align:center}.card-box{padding:28px 18px}.countdown-grid{gap:8px}.countdown-num{font-size:1.75rem}.details-grid{flex-direction:column;align-items:center;gap:18px}.vertical-sep{display:none}.map-btn,.copy-map-btn{width:100%;max-width:280px}.form-row{grid-template-columns:1fr}.gallery{grid-template-columns:1fr;gap:12px}.music-toggle{right:12px;bottom:12px}}
   </style>
 </head>
 <body>
+  <!-- NEW: Intro Overlay -->
+  <div id="introOverlay" class="intro-overlay">
+    <div class="intro-content">
+      <div class="intro-title">Khang Vinh &amp; Thuý Nhã</div>
+      <button class="intro-btn">Chạm để mở thiệp</button>
+    </div>
+  </div>
+
   <header>
     <img src="logo.jpg" class="tiger-crest" alt="Biểu tượng Song Hổ đập tay high five">
     <div class="subtitle">Save The Date</div>
@@ -57,7 +83,7 @@
   </main>
   <footer><p>Sự hiện diện của bạn là niềm vinh hạnh lớn nhất của gia đình chúng tôi.</p><div class="copyright">Khang Vinh &bull; Thuý Nhã &bull; 2027</div></footer>
 
-  <audio id="weddingMusic" src="music.mp3" autoplay loop preload="auto">
+  <audio id="weddingMusic" src="music.mp3" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
     Trình duyệt của bạn không hỗ trợ phát nhạc.
   </audio>
@@ -97,15 +123,16 @@
       }
       updateCountdown(); setInterval(updateCountdown, 1000);
     })();
+    
+    // Animation and Music Script
     (function () {
       var music = document.getElementById('weddingMusic');
       var button = document.getElementById('musicToggle');
+      var overlay = document.getElementById('introOverlay');
       var scrolling = false;
       var animationFrame = null;
       var lastFrameTime = 0;
       var userPaused = false;
-      var manualScrolled = false;
-      var unlockEvents = ['click', 'touchend', 'mouseup', 'keydown'];
 
       function setMusicState(isPlaying) {
         button.setAttribute('aria-pressed', String(isPlaying));
@@ -119,7 +146,7 @@
         lastFrameTime = time;
         var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         if (window.scrollY >= maxScroll) {
-          stopScroll(false);
+          stopScroll();
           return;
         }
         window.scrollBy(0, (elapsed / 1000) * 18);
@@ -127,7 +154,7 @@
       }
 
       function startScroll() {
-        if (scrolling || manualScrolled) return;
+        if (scrolling) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         if (maxScroll > 0 && window.scrollY >= maxScroll) return;
@@ -136,61 +163,47 @@
         animationFrame = requestAnimationFrame(scrollFrame);
       }
 
-      function stopScroll(isManual) {
-        if (isManual) manualScrolled = true;
+      function stopScroll() {
         if (!scrolling) return;
         scrolling = false;
         if (animationFrame !== null) cancelAnimationFrame(animationFrame);
         animationFrame = null;
       }
 
-      function removeUnlockListeners() {
-        unlockEvents.forEach(function (evt) {
-          document.removeEventListener(evt, onFirstInteraction, true);
-        });
-      }
-
-      function startMusicAndScroll() {
-        startScroll();
-        if (userPaused || !music.paused) return;
-        var playPromise = music.play();
-        if (playPromise !== undefined) {
-          playPromise.then(function () {
+      // Hide overlay and start BOTH music and scroll immediately
+      function enterInvitation() {
+        overlay.classList.add('hidden');
+        
+        // Start scroll
+        setTimeout(startScroll, 400); // slight delay to let overlay fade out
+        
+        // Start music
+        if (!userPaused) {
+          music.play().then(function() {
             setMusicState(true);
-            removeUnlockListeners();
-          }).catch(function () {
-            setMusicState(false);
+          }).catch(function(err) {
+            console.error('Audio play failed:', err);
           });
         }
       }
 
-      function onFirstInteraction(event) {
-        if (event.target && button.contains(event.target)) return;
-        if (event.target && event.target.closest('a, button, input, select, textarea')) {
-          stopScroll(true);
-        }
-        startMusicAndScroll();
-      }
+      // Attach click to overlay
+      overlay.addEventListener('click', enterInvitation);
 
-      unlockEvents.forEach(function (evt) {
-        document.addEventListener(evt, onFirstInteraction, { capture: true, passive: true });
+      // Stop scroll if user manually interacts with page content
+      var stopEvents = ['wheel', 'touchmove', 'mousedown', 'keydown'];
+      stopEvents.forEach(function(evt) {
+        document.addEventListener(evt, stopScroll, { capture: true, passive: true });
       });
-      document.addEventListener('wheel', function () { stopScroll(true); }, { capture: true, passive: true });
-      document.addEventListener('touchmove', function () { stopScroll(true); }, { capture: true, passive: true });
 
-      startMusicAndScroll();
-      window.addEventListener('load', startMusicAndScroll);
-
-      button.addEventListener('click', function () {
+      // Music button logic
+      button.addEventListener('click', function (e) {
+        e.stopPropagation(); // prevent bubbling if they click button while scrolling
         if (music.paused) {
           userPaused = false;
           button.disabled = true;
-          startScroll();
           music.play().then(function () {
             setMusicState(true);
-            removeUnlockListeners();
-          }).catch(function (error) {
-            console.error('Không thể phát nhạc:', error);
           }).finally(function () {
             button.disabled = false;
           });
@@ -202,10 +215,7 @@
       });
 
       music.addEventListener('pause', function () { setMusicState(false); });
-      music.addEventListener('play', function () {
-        setMusicState(true);
-        removeUnlockListeners();
-      });
+      music.addEventListener('play', function () { setMusicState(true); });
     })();
   </script>
 </body>
