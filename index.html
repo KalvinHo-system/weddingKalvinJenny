@@ -16,8 +16,7 @@
     .section-title{font:400 2rem/1.2 'Cormorant Garamond',Georgia,serif;margin:0 0 8px}.rsvp-form{max-width:440px;margin:auto;text-align:left}.form-group{margin-bottom:16px}.form-label{display:block;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent-dark);font-weight:500;margin-bottom:6px}.form-control{width:100%;padding:11px 14px;font:400 .9rem Montserrat,sans-serif;color:var(--text-dark);background:var(--bg-cream);border:1px solid var(--border)}.form-row{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.rsvp-submit-btn{width:100%;padding:13px 24px;background:var(--accent-champagne);color:white;border:1px solid var(--accent-champagne);font:500 .76rem Montserrat,sans-serif;letter-spacing:2px;text-transform:uppercase;cursor:pointer}.rsvp-status{display:none;margin:16px auto 0;padding:14px;border:1px solid var(--border);background:var(--bg-cream);max-width:440px}.rsvp-status.success{border-color:var(--accent-champagne);background:#FAF6EF}.rsvp-status.error{color:#8A3B3B;border-color:#C97A7A;background:#FDF6F6}
     .gift-toggle{display:block;position:relative;z-index:1;width:100%;max-width:440px;margin:18px auto 0;padding:12px 16px;background:transparent;border:1px solid var(--accent-champagne);color:var(--accent-dark);font:400 .78rem/1.5 Montserrat,sans-serif;cursor:pointer}.gift-toggle:hover{background:#b59a7218}.gift-toggle:focus-visible,.music-toggle:focus-visible{outline:2px solid var(--accent-dark);outline-offset:3px}.gallery-section{margin:0 0 34px}.section-sub{font-size:.82rem;color:var(--text-muted);margin:0 0 22px}.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:start}.photo-box{border:1px solid var(--border);overflow:hidden}.photo-box img{display:block;width:100%;height:auto}.gift-card{margin-top:0}.gift-card[hidden]{display:none}.gift-text{margin:8px auto 22px}.qr-box{max-width:240px;margin:0 auto 18px;padding:12px;background:var(--bg-cream);border:1px solid var(--border)}.qr-box img{display:block;width:100%;height:auto}
     footer{max-width:560px;margin:auto;padding:28px 20px 64px;border-top:1px solid var(--border);color:var(--text-muted);font:italic 1.15rem 'Cormorant Garamond',Georgia,serif}.copyright{font:500 .72rem Montserrat,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--accent-champagne)}
-    @keyframes musicPulse{0%,100%{box-shadow:0 4px 16px #2c2a2918,0 0 0 0 rgba(181,154,114,.45)}70%{box-shadow:0 4px 16px #2c2a2918,0 0 0 10px rgba(181,154,114,0)}}
-    .music-toggle{position:fixed;right:18px;bottom:18px;z-index:5;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--accent-champagne);border-radius:50%;background:#fff;color:var(--accent-dark);font-size:1.15rem;line-height:1;box-shadow:0 4px 16px #2c2a2918;cursor:pointer;animation:musicPulse 2.2s infinite;transition:background-color .25s ease,color .25s ease,transform .2s ease}.music-toggle:hover{transform:scale(1.05)}.music-toggle[aria-pressed="true"]{background:var(--accent-champagne);color:#fff;animation:none}.music-toggle:disabled{opacity:.65;cursor:wait}
+    .music-toggle{position:fixed;right:18px;bottom:18px;z-index:5;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--accent-champagne);border-radius:50%;background:#fff;color:var(--accent-dark);font-size:1.15rem;line-height:1;box-shadow:0 4px 16px #2c2a2918;cursor:pointer;transition:background-color .25s ease,color .25s ease,transform .2s ease}.music-toggle:hover{transform:scale(1.05)}.music-toggle[aria-pressed="true"]{background:var(--accent-champagne);color:#fff}.music-toggle:disabled{opacity:.65;cursor:wait}
     @media(max-width:640px){header{padding:36px 16px 22px}.tiger-crest{width:220px}h1{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 10px;font-size:clamp(1.65rem,6.6vw,2.35rem)}h1 .couple-name:first-child,h1 .couple-name:last-child{text-align:center}.card-box{padding:28px 18px}.countdown-grid{gap:8px}.countdown-num{font-size:1.75rem}.details-grid{flex-direction:column;align-items:center;gap:18px}.vertical-sep{display:none}.map-btn,.copy-map-btn{width:100%;max-width:280px}.form-row{grid-template-columns:1fr}.gallery{grid-template-columns:1fr;gap:12px}.music-toggle{right:12px;bottom:12px}}
   </style>
 </head>
@@ -101,29 +100,58 @@
     (function () {
       var music = document.getElementById('weddingMusic');
       var button = document.getElementById('musicToggle');
-      var scrollKey = 'weddingAutoScrollStarted';
       var scrolling = false;
       var animationFrame = null;
       var lastFrameTime = 0;
       var userPaused = false;
+      var manualScrolled = false;
       var unlockEvents = ['click', 'touchend', 'mouseup', 'keydown'];
 
-      function sessionGet(key) {
-        try { return sessionStorage.getItem(key); } catch (error) { return null; }
-      }
-      function sessionSet(key, value) {
-        try { sessionStorage.setItem(key, value); } catch (error) { /* Continue without session storage. */ }
-      }
       function setMusicState(isPlaying) {
         button.setAttribute('aria-pressed', String(isPlaying));
         button.setAttribute('aria-label', isPlaying ? 'Tắt nhạc nền' : 'Bật nhạc nền');
       }
+
+      function scrollFrame(time) {
+        if (!scrolling) return;
+        if (!lastFrameTime) lastFrameTime = time;
+        var elapsed = Math.min(time - lastFrameTime, 50);
+        lastFrameTime = time;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (window.scrollY >= maxScroll) {
+          stopScroll(false);
+          return;
+        }
+        window.scrollBy(0, (elapsed / 1000) * 18);
+        animationFrame = requestAnimationFrame(scrollFrame);
+      }
+
+      function startScroll() {
+        if (scrolling || manualScrolled) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (maxScroll > 0 && window.scrollY >= maxScroll) return;
+        scrolling = true;
+        lastFrameTime = 0;
+        animationFrame = requestAnimationFrame(scrollFrame);
+      }
+
+      function stopScroll(isManual) {
+        if (isManual) manualScrolled = true;
+        if (!scrolling) return;
+        scrolling = false;
+        if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+
       function removeUnlockListeners() {
         unlockEvents.forEach(function (evt) {
-          document.removeEventListener(evt, onUserGesture, true);
+          document.removeEventListener(evt, onFirstInteraction, true);
         });
       }
-      function tryAutoPlay() {
+
+      function startMusicAndScroll() {
+        startScroll();
         if (userPaused || !music.paused) return;
         var playPromise = music.play();
         if (playPromise !== undefined) {
@@ -135,52 +163,29 @@
           });
         }
       }
-      function stopScroll() {
-        if (!scrolling) return;
-        scrolling = false;
-        if (animationFrame !== null) cancelAnimationFrame(animationFrame);
-        animationFrame = null;
-      }
-      function scrollFrame(time) {
-        if (!scrolling) return;
-        if (!lastFrameTime) lastFrameTime = time;
-        var elapsed = Math.min(time - lastFrameTime, 50);
-        lastFrameTime = time;
-        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        if (window.scrollY >= maxScroll) {
-          stopScroll();
-          return;
-        }
-        window.scrollBy(0, (elapsed / 1000) * 18);
-        animationFrame = requestAnimationFrame(scrollFrame);
-      }
-      function onUserGesture(event) {
-        stopScroll();
+
+      function onFirstInteraction(event) {
         if (event.target && button.contains(event.target)) return;
-        tryAutoPlay();
+        if (event.target && event.target.closest('a, button, input, select, textarea')) {
+          stopScroll(true);
+        }
+        startMusicAndScroll();
       }
 
       unlockEvents.forEach(function (evt) {
-        document.addEventListener(evt, onUserGesture, { capture: true, passive: true });
+        document.addEventListener(evt, onFirstInteraction, { capture: true, passive: true });
       });
-      document.addEventListener('wheel', stopScroll, { capture: true, passive: true });
-      document.addEventListener('touchmove', stopScroll, { capture: true, passive: true });
+      document.addEventListener('wheel', function () { stopScroll(true); }, { capture: true, passive: true });
+      document.addEventListener('touchmove', function () { stopScroll(true); }, { capture: true, passive: true });
 
-      tryAutoPlay();
-      document.addEventListener('DOMContentLoaded', tryAutoPlay);
-      window.addEventListener('load', tryAutoPlay);
-
-      if (!sessionGet(scrollKey) && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        sessionSet(scrollKey, 'true');
-        scrolling = true;
-        animationFrame = requestAnimationFrame(scrollFrame);
-      }
+      startMusicAndScroll();
+      window.addEventListener('load', startMusicAndScroll);
 
       button.addEventListener('click', function () {
-        stopScroll();
         if (music.paused) {
           userPaused = false;
           button.disabled = true;
+          startScroll();
           music.play().then(function () {
             setMusicState(true);
             removeUnlockListeners();
@@ -195,6 +200,7 @@
           setMusicState(false);
         }
       });
+
       music.addEventListener('pause', function () { setMusicState(false); });
       music.addEventListener('play', function () {
         setMusicState(true);
