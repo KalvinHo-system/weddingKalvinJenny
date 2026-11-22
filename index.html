@@ -100,6 +100,7 @@
       <form id="rsvpForm" class="rsvp-form">
         <div class="form-group"><label class="form-label" for="rsvpName">Tên khách mời *</label><input id="rsvpName" class="form-control" type="text" placeholder="Nhập họ và tên của bạn" required autocomplete="name"></div>
         <div class="form-row"><div class="form-group"><label class="form-label" for="rsvpGroup">Nhóm *</label><select id="rsvpGroup" class="form-control"><option>Nhà Trai</option><option>Nhà Gái</option><option>Bạn Chú Rể</option><option>Bạn Cô Dâu</option><option>Đồng Nghiệp</option><option>Khác</option></select></div><div class="form-group"><label class="form-label" for="rsvpCount">Số người *</label><input id="rsvpCount" class="form-control" type="number" value="1" min="1" max="20" required></div></div>
+        <div class="form-group"><label class="form-label" for="rsvpPickup">Vị trí xe đón (từ Sài Gòn) *</label><select id="rsvpPickup" class="form-control"><option value="Tại Cty Intel">Tại Cty Intel</option><option value="Tại Hàng Xanh">Tại Hàng Xanh</option><option value="Tự di chuyển">Tự di chuyển</option></select></div>
         <button type="submit" class="rsvp-submit-btn">Gửi Xác Nhận Tham Dự</button>
       </form>
       <div id="rsvpStatus" class="rsvp-status" role="status" aria-live="polite"></div>
@@ -137,10 +138,11 @@
       var name = document.getElementById('rsvpName').value.trim();
       var group = document.getElementById('rsvpGroup').value;
       var count = parseInt(document.getElementById('rsvpCount').value, 10) || 1;
+      var pickup = document.getElementById('rsvpPickup').value;
       var status = document.getElementById('rsvpStatus');
       if (!name) return;
       status.className = 'rsvp-status'; status.style.display = 'block'; status.textContent = 'Đang gửi xác nhận…';
-      fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ten: name, nhom: group, soNguoi: count }) })
+      fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ten: name, nhom: group, soNguoi: count, xeDon: pickup }) })
         .then(function () { status.className = 'rsvp-status success'; status.textContent = 'Cảm ơn ' + name + '! Xác nhận tham dự thành công.'; })
         .catch(function () { status.className = 'rsvp-status error'; status.textContent = 'Có lỗi khi gửi xác nhận. Quý khách vui lòng thử lại nhé.'; });
     });
